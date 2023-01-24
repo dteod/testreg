@@ -21,11 +21,11 @@
 #ifndef TESTREG_MACROS_H_INCLUDED
 #define TESTREG_MACROS_H_INCLUDED
 
-#define TESTREG_NEW_FUNCTION()           TESTREG_CREATE_NEW_FUNCTION(__COUNTER__)
-#define TESTREG_CREATE_NEW_FUNCTION(CNT) TESTREG_EXPAND_NEW_FUNCTION(CNT)
-#define TESTREG_EXPAND_NEW_FUNCTION(CNT) TEST_NUMBER_##CNT
+#define TESTREG_NEW_TEST()           TESTREG_CREATE_NEW_TEST(__COUNTER__)
+#define TESTREG_CREATE_NEW_TEST(CNT) TESTREG_EXPAND_NEW_TEST(CNT)
+#define TESTREG_EXPAND_NEW_TEST(CNT) TEST_NUMBER_##CNT
 
-#define TESTREG_INTERNAL_TEST_CASE(TEST_NAME, ...) TESTREG_INTERNAL_REGISTER_TEST(TEST_NAME, __VA_ARGS__)
+#define TESTREG_INTERNAL_TEST(TEST_NAME, ...) TESTREG_INTERNAL_REGISTER_TEST(TEST_NAME, __VA_ARGS__)
 #define TESTREG_INTERNAL_REGISTER_TEST(TEST_NAME, ...)                                                                           \
   static void                         TEST_NAME(testreg_result*);                                                                \
   static TESTREG_CTOR(TEST_NAME) void register_##TEST_NAME()                                                                     \
@@ -36,17 +36,9 @@
   }                                                                                                                              \
   static void TEST_NAME(testreg_result* testreg_result_variable)
 
-#define TEST_CASE(...) TESTREG_INTERNAL_TEST_CASE(TESTREG_NEW_FUNCTION(), __VA_ARGS__)
+#define TEST(...) TESTREG_INTERNAL_TEST(TESTREG_NEW_TEST(), __VA_ARGS__)
 
-#define TESTREG_CHECK(expr, TEST_NAME)                                                                                           \
-  do {                                                                                                                           \
-    if(!(expr)) {                                                                                                                \
-      *testreg_result_variable = TESTREG_RESULT_SKIPPED;                                                                         \
-      return;                                                                                                                    \
-    }                                                                                                                            \
-  } while(0)
-
-#define TESTREG_ASSERT(expr, TEST_NAME)                                                                                          \
+#define TESTREG_REQUIRE(expr, TEST_NAME)                                                                                         \
   do {                                                                                                                           \
     if(!(expr)) {                                                                                                                \
       *testreg_result_variable = TESTREG_RESULT_FAILURE;                                                                         \
@@ -54,7 +46,26 @@
     }                                                                                                                            \
   } while(0)
 
+#define REQUIRE(expr) TESTREG_REQUIRE(expr, __FUNC__)
+
+#define TESTREG_ASSERT(expr, TEST_NAME)                                                                                          \
+  do {                                                                                                                           \
+    if(!(expr)) {                                                                                                                \
+      *testreg_result_variable = TESTREG_RESULT_FAILURE;                                                                         \
+    }                                                                                                                            \
+  } while(0)
+
 #define ASSERT(expr) TESTREG_ASSERT(expr, __FUNC__)
+
+#define TESTREG_CHECK(expr, TEST_NAME)                                                                                           \
+  do {                                                                                                                           \
+    if(!(expr)) {                                                                                                                \
+      if(*testreg_result_variable != TESTREG_RESULT_FAILURE) {                                                                   \
+        *testreg_result_variable = TESTREG_RESULT_SKIPPED;                                                                       \
+      }                                                                                                                          \
+      return;                                                                                                                    \
+    }                                                                                                                            \
+  } while(0)
 
 #define CHECK(expr) TESTREG_CHECK(expr, __FUNC__)
 

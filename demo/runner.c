@@ -23,20 +23,21 @@
 #define TESTREG_RUNNER
 #include <testreg.h>
 
-TEST_CASE()
+TEST()
 {
     printf("hello from %s\n", __func__);
-    ASSERT(true);  // passes and continues up to the end
+    REQUIRE(true);  // passes and continues up to the end
 }
 
-TEST_CASE()
+TEST()
 {
     printf("hello from %s\n", __func__);
-    ASSERT(false);  // fails
+    ASSERT(false);  // fails (but continues)
+    REQUIRE(false); // definitely fails and exits
 }
 
-TEST_CASE()
+TEST()
 {
     printf("hello from %s\n", __func__);
-    CHECK(false);  // skips
+    CHECK(false);   // skips
 }
