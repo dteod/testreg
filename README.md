@@ -1,4 +1,4 @@
-## Testreg
+## testreg
 
 ### A small unit testing library for C with automatic test registration
 
@@ -7,14 +7,16 @@ bare minimum features you could expect from a testing framework, such as:
 
 - automatic test registration: you can add tests to your compilation units
 simply by including the headers and declaring test cases using the `TEST_CASE`
-macro
+macro, and they will be collected directly by linking the various compilation units
 - macros to `ASSERT` test results and `CHECK`s to skip them if particular
 conditions are not met
 - the possibility to embed a runner program in a compilation unit by declaring
 `TESTREG_RUNNER` before including the library.
 
 The library aims at the same level of usability of [Catch2](https://github.com/catchorg/Catch2),
-with of course a (very) limited set of features restricted to the C programming language.
+with of course a (very) limited set of features restricted to the C programming
+language. With it you can add your tests to each compilation unit, they will be
+linked all together and statically registered before main is called.
 
 ## Purpose
 
