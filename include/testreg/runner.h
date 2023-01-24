@@ -46,6 +46,7 @@ main()
         case TESTREG_RESULT_SUCCESS: success++; break;
         case TESTREG_RESULT_FAILURE: failure++; break;
         case TESTREG_RESULT_SKIPPED: skipped++; break;
+        case TESTREG_RESULT_NOT_RUN: break;
         }
         total++;
         node = node->next;
@@ -58,11 +59,17 @@ main()
         printf("No tests were found.\n");
     }
     else {
-        printf("Test report\n");
+        printf(" Test report\n");
         printf("------------------\n");
-        printf("%-12s: %d/%d\n", "success", success, total);
-        printf("%-12s: %d/%d\n", "failure", failure, total);
-        printf("%-12s: %d/%d\n", "skipped", skipped, total);
+        if(success) {
+            printf("%8s: %d/%d\n", "success", success, total);
+        }
+        if(failure) {
+            printf("%8s: %d/%d\n", "failure", failure, total);
+        }
+        if(skipped) {
+            printf("%8s: %d/%d\n", "skipped", skipped, total);
+        }
     }
     return total ? failure ? EXIT_FAILURE : EXIT_SUCCESS : EXIT_SUCCESS;
 }

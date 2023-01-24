@@ -54,5 +54,5 @@ if(TARGET_SUPPORTS_SHARED_LIBS)
     add_testreg_library(SHARED)
 endif()
 
-add_executable(testreg_runner EXCLUDE_FROM_ALL ${CMAKE_CURRENT_SOURCE_DIR}/test/runner.c)
-target_link_libraries(testreg_runner PUBLIC testreg_static)
+add_executable(testreg_demo_runner EXCLUDE_FROM_ALL ${CMAKE_CURRENT_SOURCE_DIR}/demo/runner.c)
+target_link_libraries(testreg_demo_runner PUBLIC testreg_static)

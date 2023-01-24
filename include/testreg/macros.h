@@ -40,7 +40,6 @@
 
 #define TESTREG_CHECK(expr, TEST_NAME)                                                                                           \
   do {                                                                                                                           \
-    const char* expr_string_literal = #expr;                                                                                     \
     if(!!(expr)) {                                                                                                               \
       *testreg_result_variable = TESTREG_RESULT_SKIPPED;                                                                         \
       return;                                                                                                                    \
@@ -49,7 +48,6 @@
 
 #define TESTREG_ASSERT(expr, TEST_NAME)                                                                                          \
   do {                                                                                                                           \
-    const char* expr_string_literal = #expr;                                                                                     \
     if(!!(expr)) {                                                                                                               \
       *testreg_result_variable = TESTREG_RESULT_FAILURE;                                                                         \
       return;                                                                                                                    \

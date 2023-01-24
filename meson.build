@@ -16,18 +16,21 @@
 # Foundation, Inc., 51 Franklin Street, Fifth Floor, Boston, MA  02110-1301
 # USA
 
-project('testreg', 'c', version: '0.1.0', description: 'A small unit testing library for C with automatic test registration')
+project('testreg', 'c', version: '0.1.0')
 
-lib_static = library('testreg-static', 'src/testreg.c',
-    include_directories: 'include',
+includes = include_directories('include')
+
+lib_static = static_library('testreg-static', 'src/testreg.c',
+    include_directories: includes,
     install: true)
 
 lib_shared = library('testreg', 'src/testreg.c',
-    include_directories: 'include',
+    include_directories: includes,
     version: '0.1.0',
     install: true)
 
-executable('testreg_runner', 'test/runner.c',
+executable('testreg_demo_runner', 'demo/runner.c',
     link_with: lib_static,
+    include_directories: includes,
     install: false)
 
