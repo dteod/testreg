@@ -8,7 +8,7 @@ bare minimum features you could expect from a testing framework, such as:
 - automatic test registration: you can add tests to your compilation units
 simply by including the headers and declaring test cases using the `TEST_CASE`
 macro, and they will be collected directly by linking the various compilation units
-- macros to `ASSERT` test results and `CHECK`s to skip them if particular
+- macros to `REQUIRE` or `ASSERT` test results, and `CHECK`s to skip them if particular
 conditions are not met
 - the possibility to embed a runner program in a compilation unit by declaring
 `TESTREG_RUNNER` before including the library.
@@ -29,14 +29,14 @@ include a library from a client's point of view:
 
 /*
 Notice that both "label" and "[tag]" are entirely optional.
-They are not used in v0.1.0 of the runner.
+They are not used in v0.1.2 of the runner.
 */
-TEST_CASE("mylib black box test 1", "[mylib][black-box]")
+TEST("mylib black box test 1", "[mylib][black-box]")
 {
     // mylib black box test body 1
 }
 
-TEST_CASE("mylib black box test 2", "[mylib][black-box]")
+TEST("mylib black box test 2", "[mylib][black-box]")
 {
     // mylib black box test body 2
 }
@@ -56,7 +56,7 @@ void mylib_api() {
 #ifdef MYLIB_BUILD_TESTS
 #include <testreg.h>
 
-TEST_CASE("mylib white box test", "[mylib][white-box]") {
+TEST("mylib white box test", "[mylib][white-box]") {
     ASSERT(mylib_private() == 1);
 }
 
