@@ -25,18 +25,18 @@
 
 TEST_CASE()
 {
-    printf("ciao da %s\n", __func__);
-    ASSERT(true);
+    printf("hello from %s\n", __func__);
+    ASSERT(true);  // passes and continues up to the end
 }
 
 TEST_CASE()
 {
-    printf("ciao da %s\n", __func__);
-    ASSERT(false);
+    printf("hello from %s\n", __func__);
+    ASSERT(false);  // fails
 }
 
 TEST_CASE()
 {
-    printf("ciao da %s\n", __func__);
-    CHECK(false);
+    printf("hello from %s\n", __func__);
+    CHECK(false);  // skips
 }
