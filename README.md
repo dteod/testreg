@@ -6,7 +6,7 @@
 bare minimum features you could expect from a testing framework, such as:
 
 - automatic test registration: you can add tests to your compilation units
-simply by including the headers and declaring test cases using the `TEST_CASE`
+simply by including the headers and declaring test cases using the `TEST`
 macro, and they will be collected directly by linking the various compilation units
 - macros to `REQUIRE` or `ASSERT` test results, and `CHECK`s to skip them if particular
 conditions are not met
